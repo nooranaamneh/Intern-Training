@@ -1,7 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-package com.mycompany.javareview;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,9 +145,19 @@ public class JavaReview {
         Student s = new Student("roqaya", "1231420", 64);
         Course course1 = new Course("web", "comp123");
         Course course2 = new Course("AI", "comp129");
-        s.enrollment(course1);
-        s.enrollment(course2);
-        s.printReport();
+        s.enroll(course1);
+        s.enroll(course2);
+        s.printInfo();
+
+        ///////////////  Polymorphism  ////////////////
+        Person person = new Student("noora" , "1230612" , 88);
+        Course course3 = new Course("web", "comp123");
+        Course course4 = new Course("AI", "comp129");
+
+        ((Student) person).enroll(course3);
+        ((Student) person).enroll(course4);
+
+        person.printInfo();
 
     }
 
