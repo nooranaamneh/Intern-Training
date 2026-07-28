@@ -29,6 +29,22 @@
                 <h1><g:message code="default.show.label" args="[entityName]" /></h1>
                 <g:flashMessages />
                 <f:display bean="student" listClass="container" listItemClass="row mb-3" labelClass="form-label col-sm-3 text-sm-end" valueClass="col-sm-9" />
+                <h2>Enrolled Courses</h2>
+                 <g:if test="${student.enrollments}">
+                   <ul>
+                    <g:each in="${student.enrollments}" var="enrollment">
+                      <li>${enrollment.course.title} (${enrollment.course.code})
+                       <g:link controller="enrollment" action="delete" id="${enrollment.id}"
+                         onclick="return confirm('${g.message(code: 'default.button.delete.confirm.message', default: 'Are you sure you want to delete this enrollment?')}')">
+                         [Delete]
+                       </g:link>
+                    </li>
+                    </g:each>
+                   </ul>
+                </g:if>
+                <g:else>
+                 <p>No courses enrolled yet.</p>
+                </g:else>
                 <g:form resource="${this.student}" controller="${controllerName}" method="DELETE">
                     <fieldset class="bg-body-tertiary">
                         <g:link class="btn btn-outline-primary" action="edit" resource="${this.student}" controller="${controllerName}">

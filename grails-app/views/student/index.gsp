@@ -32,7 +32,26 @@
                   <button type="submit">Search</button>
                 </g:form>
 
-                <f:table class="scaffold table table-striped table-sm" controller="${controllerName}" collection="${studentList}" properties="['name' , 'email']"/>
+               <table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Show Student</th>
+        </tr>
+    </thead>
+    <tbody>
+        <g:each in="${studentList}" var="student">
+            <tr>
+                <td>${fieldValue(bean: student, field: "name")}</td>
+                <td>${fieldValue(bean: student, field: "email")}</td>
+                <td>
+                    <g:link controller="student" action="show" id="${student.id}">Show Student</g:link>
+                </td>
+            </tr>
+        </g:each>
+    </tbody>
+</table>
 
                 <g:if test="${studentCount > params.int('max')}">
                     <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">

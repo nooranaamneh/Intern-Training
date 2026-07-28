@@ -26,7 +26,28 @@
                 <h1>
                     <g:message code="default.list.label" args="[entityName]" /></h1>
                 <g:flashMessages />
-                <f:table class="scaffold table table-striped table-sm" controller="${controllerName}" collection="${courseList}"/>
+                <table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Code</th>
+            <th>Credit Hours</th>
+            <th>Show Course</th>
+        </tr>
+    </thead>
+    <tbody>
+        <g:each in="${courseList}" var="course">
+            <tr>
+                <td>${fieldValue(bean: course, field: "title")}</td>
+                <td>${fieldValue(bean: course, field: "code")}</td>
+                <td>${fieldValue(bean: course, field: "creditHours")}</td>
+                <td>
+                    <g:link controller="course" action="show" id="${course.id}">Show Course</g:link>
+                </td>
+            </tr>
+        </g:each>
+    </tbody>
+</table>
 
                 <g:if test="${courseCount > params.int('max')}">
                     <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">

@@ -6,6 +6,8 @@ class Course {
     String code
     Integer creditHours
 
+    static hasMany = [enrollments: Enrollment]
+
     static constraints = {
 
         title blank: false

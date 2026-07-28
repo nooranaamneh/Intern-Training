@@ -29,6 +29,17 @@
                 <h1><g:message code="default.show.label" args="[entityName]" /></h1>
                 <g:flashMessages />
                 <f:display bean="course" listClass="container" listItemClass="row mb-3" labelClass="form-label col-sm-3 text-sm-end" valueClass="col-sm-9" />
+                <h2>Enrolled Students</h2>
+                <g:if test="${course.enrollments}">
+                  <ul>
+                    <g:each in="${course.enrollments}" var="enrollment">
+                      <li>${enrollment.student.name} (${enrollment.student.email})</li>
+                    </g:each>
+                  </ul>
+                </g:if>
+                <g:else>
+                  <p>no students enrolled in this course yet</p>
+                </g:else>
                 <g:form resource="${this.course}" controller="${controllerName}" method="DELETE">
                     <fieldset class="bg-body-tertiary">
                         <g:link class="btn btn-outline-primary" action="edit" resource="${this.course}" controller="${controllerName}">

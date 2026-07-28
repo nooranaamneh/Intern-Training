@@ -6,6 +6,8 @@ class Student {
     String email
     String studentNumber
 
+    static hasMany = [enrollments: Enrollment]
+
     static constraints = {
         name(blank: false)
         email(unique: true, email: true)
