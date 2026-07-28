@@ -3,6 +3,7 @@ import grails.gorm.transactions.Transactional
  @Transactional
 
 class EnrollmentController {
+    EnrollmentService enrollmentService
 
     def index() { 
       [enrollmentList: Enrollment.list()]
@@ -23,15 +24,13 @@ class EnrollmentController {
         return
      }
 
-     def existing = Enrollment.findByStudentAndCourse(enrollment.student, enrollment.course)
+     def result = enrollmentService.enroll(enrollment.student.id , enrollment.course.id)
 
-    if (existing) {
+    if (!result) {
         flash.message = "This student is already enrolled in this course."
         redirect action: 'create'
         return
     }
-
-    enrollment.save flush: true
 
     redirect action: 'index'
 }
@@ -41,8 +40,48 @@ class EnrollmentController {
           notFound()
           return
      }
-     enrollment.delete flush: true
+
+      enrollmentService.unenroll(enrollment.id)
      redirect action: 'index'
 
     }
+
+    def editGrade(Enrollment enrollment) {
+    if (enrollment == null) {
+        notFound()
+        return
+    }
+    respond enrollment
 }
+
+def updateGrade(Enrollment enrollment) {
+    if (enrollment == null) {
+        notFound()
+        return
+    }
+
+    def result = enrollmentService.updateGrade(enrollment.id, params.grade as Integer)
+
+    if (!result) {
+        flash.message = "Could not update grade."
+    }
+
+    redirect action: 'index'
+}
+
+def testGpa() {
+
+    Long studentId = 4L 
+
+    def gpa = enrollmentService.calculateGpa(studentId)
+
+    render "GPA for student ${studentId}: ${gpa}"
+}
+
+def calcgpa(Long studentId){
+    def gpa = enrollmentService.calculateGpa(studentId)
+
+    render "GPA for student ${studentId}: ${gpa}"
+}
+}
+

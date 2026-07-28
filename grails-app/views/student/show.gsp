@@ -34,6 +34,7 @@
                    <ul>
                     <g:each in="${student.enrollments}" var="enrollment">
                       <li>${enrollment.course.title} (${enrollment.course.code})
+                       <g:link controller="enrollment" action="editGrade" id="${enrollment.id}">[Update Grade]</g:link>
                        <g:link controller="enrollment" action="delete" id="${enrollment.id}"
                          onclick="return confirm('${g.message(code: 'default.button.delete.confirm.message', default: 'Are you sure you want to delete this enrollment?')}')">
                          [Delete]
@@ -55,6 +56,9 @@
                         </button>
                     </fieldset>
                 </g:form>
+                <br>
+                <h2>GPA</h2>
+                <g:link controller="enrollment" action="calcgpa" params="[studentId: student.id]"> View GPA </g:link>
             </div>
         </section>
     </div>

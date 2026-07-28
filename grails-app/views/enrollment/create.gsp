@@ -8,7 +8,7 @@
     <title>Create Enrollment</title>
   </head>
   <body>
-    <h1> Create Enrollment </h1>
+    <h1>Create Enrollment</h1>
     <g:form action="save">
       <div>
         <label>Student</label>
@@ -16,13 +16,8 @@
       </div>
       <br>
       <div>
-        <label>Courses</label>
+        <label>Course</label>
         <g:select name="course.id" from="${Course.list()}" optionKey="id" optionValue="title" />
-      </div>
-      <br>
-      <div>
-        <label>Grade</label>
-        <g:textField name="grade"/>
       </div>
       <br>
       <g:submitButton name="save" value="Save"/>

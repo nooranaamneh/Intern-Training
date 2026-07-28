@@ -17,12 +17,15 @@ class CourseService {
         Course.count()
     }
 
-    void delete(Serializable id) {
-        Course.get(id)?.delete()
-    }
-
     Course save(Course course) {
         course.save()
         course
+    }
+
+    void delete(Serializable id) {
+        Course course = Course.get(id)
+        if (course) {
+            course.delete()
+        }
     }
 }
