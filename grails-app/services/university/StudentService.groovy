@@ -22,7 +22,9 @@ class StudentService {
     }
 
     Student save(Student student) {
-        student.save()
-        student
+    if (!student.save()) {
+        throw new grails.validation.ValidationException("Student validation failed", student.errors)
     }
+    student
+}
 }

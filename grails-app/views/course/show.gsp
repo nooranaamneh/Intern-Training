@@ -26,30 +26,33 @@
         </section>
         <section class="row">
             <div id="show-course" class="col-12 content scaffold-show" role="main">
-                <h1><g:message code="default.show.label" args="[entityName]" /></h1>
-                <g:flashMessages />
-                <f:display bean="course" listClass="container" listItemClass="row mb-3" labelClass="form-label col-sm-3 text-sm-end" valueClass="col-sm-9" />
-                <h2>Enrolled Students</h2>
+                <h2> Course <h2>
+                <h3> Title :  ${course.title}</h3>
+                <h3> Code :  ${course.code}<h3>
+                <h3> Credit Hours :  ${course.creditHours}<h3>
+                <br>
+                <g:form resource="${this.course}" controller="${controllerName}" method="DELETE">
+                    <fieldset class="bg-body-tertiary">
+                        <g:link class="btn btn-primary" action="edit" resource="${this.course}" controller="${controllerName}">
+                            <i class="bi-pencil-square"></i> <g:message code="default.button.edit.label" default="Edit" />
+                        </g:link>
+                        <button class="btn btn-primary" type="submit" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">
+                            <i class="bi-trash"></i> ${message(code: 'default.button.delete.label', default: 'Delete')}
+                        </button>
+                    </fieldset>
+                </g:form>
+                <br>
+                <h3>Enrolled Students</h3>
                 <g:if test="${course.enrollments}">
                   <ul>
                     <g:each in="${course.enrollments}" var="enrollment">
-                      <li>${enrollment.student.name} (${enrollment.student.email})</li>
+                      <li>${enrollment.student.name} - ${enrollment.student.studentNumber}</li>
                     </g:each>
                   </ul>
                 </g:if>
                 <g:else>
                   <p>no students enrolled in this course yet</p>
                 </g:else>
-                <g:form resource="${this.course}" controller="${controllerName}" method="DELETE">
-                    <fieldset class="bg-body-tertiary">
-                        <g:link class="btn btn-outline-primary" action="edit" resource="${this.course}" controller="${controllerName}">
-                            <i class="bi-pencil-square"></i> <g:message code="default.button.edit.label" default="Edit" />
-                        </g:link>
-                        <button class="btn btn-outline-primary" type="submit" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">
-                            <i class="bi-trash"></i> ${message(code: 'default.button.delete.label', default: 'Delete')}
-                        </button>
-                    </fieldset>
-                </g:form>
             </div>
         </section>
     </div>

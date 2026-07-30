@@ -27,7 +27,7 @@ class EnrollmentController {
      def result = enrollmentService.enroll(enrollment.student.id , enrollment.course.id)
 
     if (!result) {
-        flash.message = "This student is already enrolled in this course."
+        flash.error = "This student is already enrolled in this course."
         redirect action: 'create'
         return
     }

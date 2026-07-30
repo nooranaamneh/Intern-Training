@@ -26,39 +26,41 @@
         </section>
         <section class="row">
             <div id="show-student" class="col-12 content scaffold-show" role="main">
-                <h1><g:message code="default.show.label" args="[entityName]" /></h1>
-                <g:flashMessages />
-                <f:display bean="student" listClass="container" listItemClass="row mb-3" labelClass="form-label col-sm-3 text-sm-end" valueClass="col-sm-9" />
-                <h2>Enrolled Courses</h2>
+                <h2> Student </h2>
+                <h3>Name :  ${student.name}</h3>
+                <h3>Email :  ${student.email}</h3>
+                <h3>Student Number :  ${student.studentNumber}</h3>
+                <br>
+                <g:form resource="${this.student}" controller="${controllerName}" method="DELETE">
+                    <fieldset class="bg-body-tertiary">
+                        <g:link class="btn btn-primary" action="edit" resource="${this.student}" controller="${controllerName}">
+                            <i class="bi-pencil-square"></i> <g:message code="default.button.edit.label" default="Edit" />
+                        </g:link>
+                        <button class="btn btn-primary" type="submit" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">
+                            <i class="bi-trash"></i> ${message(code: 'default.button.delete.label', default: 'Delete')}
+                        </button>
+                    </fieldset>
+                </g:form>
+                <br><br>
+                <h3>Enrolled Courses</h3>
                  <g:if test="${student.enrollments}">
                    <ul>
                     <g:each in="${student.enrollments}" var="enrollment">
                       <li>${enrollment.course.title} (${enrollment.course.code})
-                       <g:link controller="enrollment" action="editGrade" id="${enrollment.id}">[Update Grade]</g:link>
-                       <g:link controller="enrollment" action="delete" id="${enrollment.id}"
+                       <g:link controller="enrollment" action="editGrade" id="${enrollment.id}" class="btn btn-primary">Update Grade</g:link>
+                        <g:link controller="enrollment" action="delete" id="${enrollment.id}" class="btn btn-primary"
                          onclick="return confirm('${g.message(code: 'default.button.delete.confirm.message', default: 'Are you sure you want to delete this enrollment?')}')">
-                         [Delete]
-                       </g:link>
+                         Un Enroll
+                         </g:link>
                     </li>
+                    <br>
                     </g:each>
                    </ul>
                 </g:if>
                 <g:else>
                  <p>No courses enrolled yet.</p>
                 </g:else>
-                <g:form resource="${this.student}" controller="${controllerName}" method="DELETE">
-                    <fieldset class="bg-body-tertiary">
-                        <g:link class="btn btn-outline-primary" action="edit" resource="${this.student}" controller="${controllerName}">
-                            <i class="bi-pencil-square"></i> <g:message code="default.button.edit.label" default="Edit" />
-                        </g:link>
-                        <button class="btn btn-outline-primary" type="submit" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">
-                            <i class="bi-trash"></i> ${message(code: 'default.button.delete.label', default: 'Delete')}
-                        </button>
-                    </fieldset>
-                </g:form>
-                <br>
-                <h2>GPA</h2>
-                <g:link controller="enrollment" action="calcgpa" params="[studentId: student.id]"> View GPA </g:link>
+                <g:link controller="enrollment" action="calcgpa" params="[studentId: student.id]" class="btn btn-primary"> View GPA </g:link>
             </div>
         </section>
     </div>

@@ -29,29 +29,16 @@
                 
                 <g:form controller="student" action="index" method="GET" class="mb-3">
                   <input type="text" name="search" value="${params.search}" placeholder="search by name" />
-                  <button type="submit">Search</button>
+                  <button type="submit" class="btn btn-primary">Search</button>
                 </g:form>
 
-               <table class="table table-striped table-sm">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Show Student</th>
-        </tr>
-    </thead>
-    <tbody>
-        <g:each in="${studentList}" var="student">
-            <tr>
-                <td>${fieldValue(bean: student, field: "name")}</td>
-                <td>${fieldValue(bean: student, field: "email")}</td>
-                <td>
-                    <g:link controller="student" action="show" id="${student.id}">Show Student</g:link>
-                </td>
-            </tr>
-        </g:each>
-    </tbody>
-</table>
+               <div class="row">
+    <g:each in="${studentList}" var="student">
+        <div class="col-12 col-md-6 col-lg-4">
+            <g:render template="studentCard" model="[student: student]"/>
+        </div>
+    </g:each>
+</div>
 
                 <g:if test="${studentCount > params.int('max')}">
                     <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">

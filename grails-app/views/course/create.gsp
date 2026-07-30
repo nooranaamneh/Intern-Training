@@ -35,10 +35,30 @@
                 <h1>${controllerName}</h1>
                 <g:form resource="${this.course}" controller="${controllerName}" method="POST">
                     <fieldset class="form">
-                        <f:all bean="course" class="row" requiredClass="mb-3 required" labelClass="col-sm-2 col-form-label text-sm-end" divClass="col-sm-10" widget-class="form-control" widget-invalidClass="is-invalid" widget-selectDateClass="w-auto form-select d-inline" widget-checkBoxClass="form-check-input align-middle" />
+                       <div class="mb-3">
+                          <label for="title" class="form-label">Title </label>
+                          <g:textField name="title" class="form-control" />
+                          <div class="text-danger small">
+                            <g:fieldError bean="${course}" field="title"/>
+                          </div>
+                       </div>
+                       <div class="mb-3">
+                          <label for="code" class="form-label">Code </label>
+                          <g:textField name="code" class="form-control" />
+                          <div class="text-danger small">
+                            <g:fieldError bean="${course}" field="code"/>
+                          </div>
+                       </div>
+                       <div class="mb-3">
+                          <label for="creditHours" class="form-label">Credit Hours </label>
+                          <g:textField name="creditHours" class="form-control" />
+                          <div class="text-danger small">
+                            <g:fieldError bean="${course}" field="creditHours"/>
+                          </div>
+                       </div>
                     </fieldset>
                     <fieldset class="bg-body-tertiary">
-                        <button class="btn btn-outline-primary" type="submit">
+                        <button class="btn btn-primary" type="submit">
                             <i class="bi-floppy"></i> ${message(code: 'default.button.create.label', default: 'Create')}
                         </button>
                     </fieldset>

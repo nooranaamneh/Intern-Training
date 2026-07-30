@@ -6,10 +6,17 @@
     <title><g:layoutTitle default="Grails"/></title>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
     <asset:stylesheet src="application.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <g:layoutHead/>
 </head>
 
 <body>
+
+<header class="bg-primary text-white py-3">
+    <div class="container-lg">
+        <h1 class="h3 mb-0">University Management System</h1>
+    </div>
+</header>
 
 <nav class="navbar navbar-expand-lg bg-body border-bottom shadow-sm">
     <div class="container-lg">
@@ -22,12 +29,17 @@
 <div class="bg-body-tertiary">
     <div class="container-lg py-4">
         <g:flashMessages />
-        <nav>
-        <ul>
-            <li><g:link controller="home">Home</g:link></li>
-            <li><g:link controller="hello">Hello</g:link></li>
+        <nav class="navbar navbar-expand bg-light px-3">
+        <ul class="navbar-nav gap-3">
+            <li class="nav-item"><g:link class="fw-semibold text-primary" controller="home">Home</g:link></li>
+            <li class="nav-item"><g:link class="fw-semibold text-primary" controller="hello">Hello</g:link></li>
+            <li class="nav-item"><g:link class="fw-semibold text-primary" controller="student">student</g:link></li>
+            <li class="nav-item"><g:link class="fw-semibold text-primary" controller="course">Course</g:link></li>
+            <li class="nav-item"><g:link class="fw-semibold text-primary" controller="enrollment">Enrollment</g:link></li>
+            <li class="nav-item"><g:link class="fw-semibold text-primary" controller="dashboard">Dashboard</g:link></li>
         </ul>
     </nav>
+    <br>
         <g:layoutBody/>
     </div>
 </div>
@@ -80,6 +92,10 @@
                     </div>
                 </a>
             </div>
+        </div>
+        <br>
+        <div>
+        <p class="text-body-secondary mb-0">University Management System — UBS Intern Training 2026</p>
         </div>
     </div>
 </footer>

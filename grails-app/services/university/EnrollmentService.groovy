@@ -103,4 +103,8 @@ class EnrollmentService {
     
    }
 
+   Long count() {
+      Enrollment.count()
+    }
+
 }

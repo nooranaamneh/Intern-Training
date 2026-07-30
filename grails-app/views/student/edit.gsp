@@ -38,10 +38,30 @@
                 <g:form resource="${this.student}" controller="${controllerName}" method="PUT">
                     <g:hiddenField name="version" value="${this.student?.version}" />
                     <fieldset class="form">
-                        <f:all bean="student" class="row" requiredClass="mb-3 required" labelClass="col-sm-2 col-form-label text-sm-end" divClass="col-sm-10" widget-class="form-control" widget-invalidClass="is-invalid" widget-selectDateClass="w-auto form-select d-inline" widget-checkBoxClass="form-check-input align-middle" />
+                        <div class="mb-3">
+                          <label for="name" class="form-label">Name </label>
+                          <g:textField name="name" class="form-control" />
+                          <div class="text-danger small">
+                            <g:fieldError bean="${student}" field="name"/>
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="email" class="form-label">Email </label>
+                          <g:textField name="email" class="form-control" />
+                          <div class="text-danger small">
+                            <g:fieldError bean="${student}" field="email"/>
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="studentNumber" class="form-label">Student Number </label>
+                          <g:textField name="studentNumber" class="form-control" />
+                          <div class="text-danger small">
+                            <g:fieldError bean="${student}" field="studentNumber"/>
+                          </div>
+                        </div>
                     </fieldset>
                     <fieldset class="bg-body-tertiary">
-                        <button class="btn btn-outline-primary" type="submit">
+                        <button class="btn btn-primary" type="submit">
                             <i class="bi-floppy"></i> ${message(code: 'default.button.update.label', default: 'Update')}
                         </button>
                     </fieldset>
