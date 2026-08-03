@@ -8,6 +8,8 @@ class Student {
 
     static hasMany = [enrollments: Enrollment]
 
+    static responseFormats = ['json', 'html']
+
     static constraints = {
         name(blank: false)
         email(unique: true, email: true)

@@ -8,6 +8,8 @@ class Course {
 
     static hasMany = [enrollments: Enrollment]
 
+    static responseFormats = ['json', 'html']
+
     static constraints = {
 
         title blank: false
