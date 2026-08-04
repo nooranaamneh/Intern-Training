@@ -15,6 +15,7 @@ class UrlMappings {
         "/api/courses"(resources: "courseRest")
         "/api/enrollments"(resources: "enrollmentRest")
        "/api/students/$id/courses"(controller: "studentRest", action: "courses")
+       "/api/students/$id/gpa"(controller: "studentRest", action: "gpa")
 
         "/"(view:"/index")
         "500"(view:'/error')
