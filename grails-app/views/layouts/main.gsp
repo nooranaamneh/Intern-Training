@@ -29,6 +29,11 @@
 <div class="bg-body-tertiary">
     <div class="container-lg py-4">
         <g:flashMessages />
+<li class="nav-item">
+    <span class="nav-link">
+        Welcome, <sec:loggedInUserInfo field="username"/>
+    </span>
+</li>
         <nav class="navbar navbar-expand bg-light px-3">
         <ul class="navbar-nav gap-3">
             <li class="nav-item"><g:link class="fw-semibold text-primary" controller="home">Home</g:link></li>
@@ -37,6 +42,11 @@
             <li class="nav-item"><g:link class="fw-semibold text-primary" controller="course">Course</g:link></li>
             <li class="nav-item"><g:link class="fw-semibold text-primary" controller="enrollment">Enrollment</g:link></li>
             <li class="nav-item"><g:link class="fw-semibold text-primary" controller="dashboard">Dashboard</g:link></li>
+            <li class="nav-item ms-2">
+    <a href="${createLink(uri: '/logout')}" class="btn btn-danger btn-sm">
+        Logout
+    </a>
+</li>
         </ul>
     </nav>
     <br>
