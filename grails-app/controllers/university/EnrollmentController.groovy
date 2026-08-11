@@ -1,18 +1,22 @@
 package university
+import grails.plugin.springsecurity.annotation.Secured
 import grails.gorm.transactions.Transactional
  @Transactional
 
 class EnrollmentController {
     EnrollmentService enrollmentService
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def index() { 
       [enrollmentList: Enrollment.list()]
     }
-
+    
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def create() {
     [enrollment: new Enrollment(),students: Student.list(),courses: Course.list()]
    }
-
+  
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def save(Enrollment enrollment) {
       if (enrollment == null) {
           notFound()
@@ -34,7 +38,8 @@ class EnrollmentController {
 
     redirect action: 'index'
 }
-
+ 
+    @Secured(['ROLE_ADMIN'])
     def delete(Enrollment enrollment){
         if (enrollment == null) {
           notFound()
@@ -46,6 +51,7 @@ class EnrollmentController {
 
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def editGrade(Enrollment enrollment) {
     if (enrollment == null) {
         notFound()
@@ -53,9 +59,10 @@ class EnrollmentController {
     }
     respond enrollment
 }
-
-def updateGrade(Enrollment enrollment) {
-    if (enrollment == null) {
+ 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
+    def updateGrade(Enrollment enrollment) {
+     if (enrollment == null) {
         notFound()
         return
     }
@@ -69,6 +76,7 @@ def updateGrade(Enrollment enrollment) {
     redirect action: 'index'
 }
 
+@Secured(['ROLE_USER', 'ROLE_ADMIN'])
 def testGpa() {
 
     Long studentId = 4L 
@@ -78,6 +86,7 @@ def testGpa() {
     render "GPA for student ${studentId}: ${gpa}"
 }
 
+@Secured(['ROLE_USER', 'ROLE_ADMIN'])
 def calcgpa(Long studentId){
     def gpa = enrollmentService.calculateGpa(studentId)
 

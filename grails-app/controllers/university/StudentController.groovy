@@ -1,5 +1,6 @@
 package university
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -34,10 +35,12 @@ class StudentController {
         respond studentService.get(id)
     }
 
+    
     def create() {
         respond new Student(params)
     }
-
+ 
+   
     def save(Student student) {
         if (student == null) {
             notFound()
@@ -60,10 +63,12 @@ class StudentController {
         }
     }
 
+    
     def edit(Long id) {
         respond studentService.get(id)
     }
 
+    
     def update(Student student) {
         if (student == null) {
             notFound()
@@ -86,6 +91,7 @@ class StudentController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         if (id == null) {
             notFound()

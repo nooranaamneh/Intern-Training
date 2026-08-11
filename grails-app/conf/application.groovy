@@ -1,10 +1,9 @@
-
-
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'university.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'university.UserRole'
 grails.plugin.springsecurity.authority.className = 'university.Role'
 grails.plugin.springsecurity.logout.postOnly = false
+
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
@@ -24,7 +23,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/course/**',      access: ['isAuthenticated()']],
 	[pattern: '/enrollment/**',  access: ['isAuthenticated()']],
 	[pattern: '/dashboard/**',   access: ['isAuthenticated()']],
-	[pattern: '/hello/**',       access: ['isAuthenticated()']]
+	[pattern: '/hello/**',       access: ['isAuthenticated()']],
+	[pattern: '/api/**', access: ['IS_AUTHENTICATED_FULLY']],
+	[pattern: '/admin/**', access: ['ROLE_ADMIN']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
@@ -35,4 +36,3 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/favicon.ico', filters: 'none'],
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
-
