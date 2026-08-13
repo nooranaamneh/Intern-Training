@@ -66,6 +66,7 @@ dependencies {
     testImplementation "org.spockframework:spock-core"
     testImplementation "org.apache.grails:grails-testing-support-web"
     implementation 'org.apache.grails:grails-spring-security:7.0.1'
+    implementation 'org.apache.grails:grails-quartz:4.0.1'
 }
 
 compileJava.options.release = 17

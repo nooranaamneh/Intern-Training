@@ -70,26 +70,46 @@ class StudentController {
 
     
     def update(Student student) {
-        if (student == null) {
-            notFound()
-            return
-        }
-
-        try {
-            studentService.save(student)
-        } catch (ValidationException e) {
-            respond student.errors, view:'edit'
-            return
-        }
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), student.id])
-                redirect student
-            }
-            '*'{ respond student, [status: OK] }
-        }
+    if (student == null) {
+        notFound()
+        return
     }
+
+    def photoFile = request.getFile('profilePhoto')
+
+    if (photoFile && !photoFile.empty) {
+        if (!photoFile.contentType?.startsWith('image/')) {
+            flash.message = "File must be an image (JPG, PNG, etc.)"
+            redirect action: 'edit', id: student.id
+            return
+        }
+
+        if (photoFile.size > 2 * 1024 * 1024){
+            flash.message = "Image is too large. Please choose an image smaller than 2MB."
+            redirect action: 'edit', id: student.id
+            return
+        }
+
+        student.profilePhoto = photoFile.bytes
+        student.contentType = photoFile.contentType
+    }
+
+    try {
+        studentService.save(student)
+    } catch (ValidationException e) {
+        respond student.errors, view: 'edit'
+        return
+    }
+
+    request.withFormat {
+        form multipartForm {
+            flash.message = message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), student.id])
+            redirect student
+        }
+        '*' { respond student, [status: OK] }
+    }
+}
+
 
     @Secured(['ROLE_ADMIN'])
     def delete(Long id) {
@@ -108,6 +128,28 @@ class StudentController {
             '*'{ render status: NO_CONTENT }
         }
     }
+
+    def renderPhoto() {
+    println "PHOTO PARAMS = ${params}"
+
+    Long id = params.long('id')
+
+    if (!id) {
+        render status: 400, text: 'Invalid student ID'
+        return
+    }
+
+    Student student = Student.get(id)
+
+    if (!student?.profilePhoto) {
+        render status: 404
+        return
+    }
+
+    response.contentType = student.contentType ?: 'image/jpeg'
+    response.outputStream << student.profilePhoto
+    response.outputStream.flush()
+}
 
     protected void notFound() {
         request.withFormat {

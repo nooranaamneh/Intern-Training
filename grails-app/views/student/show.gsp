@@ -410,6 +410,13 @@
             .course-actions {
                 width: 100%;
             }
+
+            .profile-avatar img {
+               width: 100%;
+               height: 100%;
+               border-radius: 50%;
+               object-fit: cover;
+            } 
         }
     </style>
 </head>
@@ -454,7 +461,18 @@
             <div class="d-flex flex-wrap align-items-start gap-4">
                 <!-- Avatar -->
                 <div class="profile-avatar">
-                    ${student?.name?.charAt(0)?.toUpperCase() ?: 'S'}
+                 <g:if test="${student?.profilePhoto}">
+    <img src="${createLink(
+        controller: 'student',
+        action: 'renderPhoto',
+        params: [id: student.id]
+    )}"
+    alt="Profile Photo"
+    style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+</g:if>
+                <g:else>
+                 ${student?.name?.charAt(0)?.toUpperCase() ?: 'S'}
+                </g:else>
                 </div>
                 
                 <!-- Profile Information -->

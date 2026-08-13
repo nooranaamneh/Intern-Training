@@ -376,7 +376,7 @@
             </g:hasErrors>
             
             <!-- Form -->
-            <g:form resource="${this.student}" controller="${controllerName}" method="PUT" class="needs-validation" novalidate="novalidate">
+            <g:form resource="${this.student}" controller="${controllerName}" method="PUT" enctype="multipart/form-data" class="needs-validation" novalidate="novalidate">
                 <g:hiddenField name="version" value="${this.student?.version}" />
                 
                 <!-- Version Info (hidden but displayed for transparency) -->
@@ -465,6 +465,10 @@
                             <i class="bi bi-info-circle text-muted"></i> 
                             Must be unique and follow the format: STU-YYYY-XXX
                         </div>
+                    </div>
+                    <div class="mb-3">
+                     <label for="profilePhoto" class="form-label">Profile Photo</label>
+                      <input type="file" name="profilePhoto" id="profilePhoto" class="form-control" accept="image/*"/>
                     </div>
                 </fieldset>
                 

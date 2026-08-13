@@ -417,12 +417,33 @@
             .student-card .card-actions {
                 flex-direction: column;
             }
+
+            .student-photo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #e2e8f0;
+}
+
+.student-photo-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #edf2f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+    font-size: 1.5rem;
+}
         }
     </style>
 </head>
 <body>
 <div id="content" role="main">
     <div class="container py-4">
+
         <!-- Page Header -->
         <div class="page-header">
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 breadcrumb-nav">
@@ -436,17 +457,23 @@
                         Manage and view all student records
                     </p>
                 </div>
+
                 <div class="d-flex gap-2">
                     <a href="${createLink(uri: '/')}" class="btn btn-outline-light btn-sm px-3 py-2 rounded-pill">
-                        <i class="bi-house me-1"></i> <g:message code="default.home.label"/>
+                        <i class="bi-house me-1"></i>
+                        <g:message code="default.home.label"/>
                     </a>
-                    <g:link class="btn btn-outline-light btn-sm px-3 py-2 rounded-pill" action="create" aria-label="Create">
-                        <i class="bi-plus-circle me-1"></i> <g:message code="default.new.label" args="[entityName]" />
+
+                    <g:link class="btn btn-outline-light btn-sm px-3 py-2 rounded-pill"
+                            action="create"
+                            aria-label="Create">
+                        <i class="bi-plus-circle me-1"></i>
+                        <g:message code="default.new.label" args="[entityName]" />
                     </g:link>
                 </div>
             </div>
         </div>
-        
+
         <!-- Stats Bar -->
         <div class="stats-bar">
             <div class="stat-item">
@@ -456,6 +483,7 @@
                     <div class="stat-label">Total Students</div>
                 </div>
             </div>
+
             <div class="stat-item">
                 <i class="bi bi-person-check"></i>
                 <div>
@@ -463,6 +491,7 @@
                     <div class="stat-label">Showing</div>
                 </div>
             </div>
+
             <g:if test="${params.search}">
                 <div class="stat-item">
                     <i class="bi bi-search"></i>
@@ -473,194 +502,210 @@
                 </div>
             </g:if>
         </div>
-        
+
         <!-- Flash Messages -->
         <g:flashMessages />
-        
+
         <!-- Search Section -->
         <div class="search-section">
             <g:form controller="student" action="index" method="GET" class="row g-3 align-items-end">
+
                 <div class="col-md-6 col-lg-8">
                     <label for="search" class="form-label fw-semibold text-muted small">
-                        <i class="bi bi-search me-1"></i> Search Students
+                        <i class="bi bi-search me-1"></i>
+                        Search Students
                     </label>
+
                     <div class="input-group-custom">
                         <i class="bi bi-search search-icon"></i>
-                        <input type="text" 
-                               name="search" 
-                               id="search" 
-                               value="${params.search}" 
-                               class="form-control" 
-                               placeholder="Search by name, email, or student number..." 
+
+                        <input type="text"
+                               name="search"
+                               id="search"
+                               value="${params.search}"
+                               class="form-control"
+                               placeholder="Search by name, email, or student number..."
                                autofocus />
                     </div>
                 </div>
+
                 <div class="col-md-6 col-lg-4">
                     <div class="d-flex gap-2">
+
                         <button type="submit" class="btn-search">
-                            <i class="bi bi-search me-1"></i> Search
+                            <i class="bi bi-search me-1"></i>
+                            Search
                         </button>
+
                         <g:if test="${params.search}">
                             <g:link action="index" class="btn-clear">
-                                <i class="bi bi-x-circle me-1"></i> Clear
+                                <i class="bi bi-x-circle me-1"></i>
+                                Clear
                             </g:link>
                         </g:if>
+
                     </div>
                 </div>
+
             </g:form>
         </div>
-        
+
         <!-- Student Grid -->
-        <g:if test="${studentList}">
-            <div class="student-grid">
-                <g:each in="${studentList}" var="student">
-                    <div class="student-card">
-                        <!-- Card Header -->
-                        <div class="card-header-content">
-                            <div class="card-avatar">
-                                ${student?.name?.charAt(0)?.toUpperCase() ?: 'S'}
-                            </div>
-                            <div>
-                                <div class="card-name">${student.name}</div>
-                                <div class="card-student-id">
-                                    <span class="card-status">
-                                        <span class="dot"></span> Active
-                                    </span>
-                                </div>
-                            </div>
+<g:if test="${studentList}">
+
+    <div class="student-grid">
+
+        <g:each in="${studentList}" var="student">
+
+            <div class="student-card">
+
+                <!-- Card Header -->
+                <div class="card-header-content">
+
+                    <!-- Student Photo -->
+                    
+
+                    <!-- Default Avatar if No Photo -->
+                    <g:if test="${student?.profilePhoto}">
+    <img src="${createLink(
+        controller: 'student',
+        action: 'renderPhoto',
+        params: [id: student.id]
+    )}"
+         alt="Profile Photo"
+         class="card-avatar" />
+</g:if>
+
+                    <div>
+                        <div class="card-name">
+                            ${student.name}
                         </div>
-                        
-                        <!-- Card Details -->
-                        <div class="card-details">
-                            <div class="card-detail-item">
-                                <i class="bi bi-envelope"></i>
-                                <span class="detail-label">Email</span>
-                                <span class="detail-value">${student.email}</span>
-                            </div>
-                            <div class="card-detail-item">
-                                <i class="bi bi-person-badge"></i>
-                                <span class="detail-label">Student #</span>
-                                <span class="detail-value">${student.studentNumber}</span>
-                            </div>
-                            <g:if test="${student.enrollments}">
-                                <div class="card-detail-item">
-                                    <i class="bi bi-book"></i>
-                                    <span class="detail-label">Courses</span>
-                                    <span class="detail-value">
-                                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill">
-                                            ${student.enrollments.size()}
-                                        </span>
-                                    </span>
-                                </div>
-                            </g:if>
-                        </div>
-                        
-                        <!-- Card Actions -->
-                        <div class="card-actions">
-                            <g:link controller="student" action="show" id="${student.id}" class="btn-action btn-view">
-                                <i class="bi bi-eye me-1"></i> View
-                            </g:link>
-                            <g:link controller="student" action="edit" id="${student.id}" class="btn-action btn-edit">
-                                <i class="bi bi-pencil me-1"></i> Edit
-                            </g:link>
+
+                        <div class="card-student-id">
+                            <span class="card-status">
+                                <span class="dot"></span>
+                                Active
+                            </span>
                         </div>
                     </div>
-                </g:each>
-            </div>
-        </g:if>
-        <g:else>
-            <div class="empty-state">
-                <i class="bi bi-people"></i>
-                <h5>No Students Found</h5>
-                <p>
-                    <g:if test="${params.search}">
-                        No students match your search criteria. Try adjusting your search.
-                    </g:if>
-                    <g:else>
-                        There are no students in the system yet.
-                        <br />
-                        <g:link action="create" class="btn btn-primary mt-3">
-                            <i class="bi bi-plus-circle me-1"></i> Add Your First Student
-                        </g:link>
-                    </g:else>
-                </p>
-            </div>
-        </g:else>
-        
-        <!-- Pagination -->
-        <g:if test="${studentCount > params.int('max')}">
-            <div class="paginate-container">
-                <g:paginate 
-                    total="${studentCount ?: 0}" 
-                    max="${params.max ?: 10}" 
-                    offset="${params.offset ?: 0}" 
-                    params="${params}" 
-                    prev="&laquo;"
-                    next="&raquo;"
-                    class="paginate" />
-            </div>
-        </g:if>
-    </div>
-</div>
 
-<!-- Custom Pagination Styling Override -->
-<style>
-    .paginate {
-        display: flex;
-        gap: 0.25rem;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .paginate .step {
-        padding: 0.5rem 0.75rem;
-        border-radius: 0.5rem;
-        border: 1px solid #e2e8f0;
-        color: #4a5568;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        min-width: 36px;
-        text-align: center;
-        font-weight: 500;
-    }
-    
-    .paginate .step:hover {
-        background: #f7fafc;
-        border-color: #cbd5e0;
-        text-decoration: none;
-        color: #4a5568;
-    }
-    
-    .paginate .currentStep {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-color: #667eea;
-        padding: 0.5rem 0.75rem;
-        border-radius: 0.5rem;
-        min-width: 36px;
-        text-align: center;
-        font-weight: 600;
-    }
-    
-    .paginate .prevLink, .paginate .nextLink {
-        padding: 0.5rem 0.75rem;
-        border-radius: 0.5rem;
-        border: 1px solid #e2e8f0;
-        color: #4a5568;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-    
-    .paginate .prevLink:hover, .paginate .nextLink:hover {
-        background: #f7fafc;
-        border-color: #cbd5e0;
-        text-decoration: none;
-        color: #4a5568;
-    }
-</style>
+                </div>
+
+                <!-- Card Details -->
+                <div class="card-details">
+
+                    <div class="card-detail-item">
+                        <i class="bi bi-envelope"></i>
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value">
+                            ${student.email}
+                        </span>
+                    </div>
+
+                    <div class="card-detail-item">
+                        <i class="bi bi-person-badge"></i>
+                        <span class="detail-label">Student #</span>
+                        <span class="detail-value">
+                            ${student.studentNumber}
+                        </span>
+                    </div>
+
+                    <g:if test="${student.enrollments}">
+                        <div class="card-detail-item">
+                            <i class="bi bi-book"></i>
+                            <span class="detail-label">Courses</span>
+                            <span class="detail-value">
+                                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill">
+                                    ${student.enrollments.size()}
+                                </span>
+                            </span>
+                        </div>
+                    </g:if>
+
+                </div>
+
+                <!-- Card Actions -->
+                <div class="card-actions">
+
+                    <g:link controller="student"
+                            action="show"
+                            id="${student.id}"
+                            class="btn-action btn-view">
+                        <i class="bi bi-eye me-1"></i>
+                        View
+                    </g:link>
+
+                    <g:link controller="student"
+                            action="edit"
+                            id="${student.id}"
+                            class="btn-action btn-edit">
+                        <i class="bi bi-pencil me-1"></i>
+                        Edit
+                    </g:link>
+
+                </div>
+
+            </div>
+
+        </g:each>
+
+    </div>
+
+</g:if>
+
+<g:if test="${!studentList}">
+
+    <div class="empty-state">
+
+        <i class="bi bi-people"></i>
+
+        <h5>No Students Found</h5>
+
+        <p>
+
+            <g:if test="${params.search}">
+                No students match your search criteria. Try adjusting your search.
+            </g:if>
+
+            <g:if test="${!params.search}">
+                There are no students in the system yet.
+                <br />
+
+                <g:link action="create" class="btn btn-primary mt-3">
+                    <i class="bi bi-plus-circle me-1"></i>
+                    Add Your First Student
+                </g:link>
+            </g:if>
+
+        </p>
+
+    </div>
+
+</g:if>
+
+<!-- Pagination -->
+<g:if test="${studentCount > params.int('max')}">
+
+    <div class="paginate-container">
+
+        <g:paginate
+            total="${studentCount ?: 0}"
+            max="${params.max ?: 10}"
+            offset="${params.offset ?: 0}"
+            params="${params}"
+            prev="&laquo;"
+            next="&raquo;"
+            class="paginate" />
+
+    </div>
+
+</g:if>
+
+</div>
+</div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
