@@ -1,0 +1,88 @@
+---
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+grails:
+    codegen:
+        defaultPackage: taskmanager
+    profile: web
+
+---
+grails:
+    mime:
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html:
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            pdf: application/pdf
+            rss: application/rss+xml
+            text: text/plain
+            hal:
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    views:
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                scriptlet: html
+
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: false
+        use_query_cache: false
+dataSource:
+    pooled: true
+    jmxExport: true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: "noora2032000#"
+
+environments:
+    development:
+        dataSource:
+            dbCreate: update
+            url: jdbc:mysql://localhost:3306/taskmanager_db?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+    test:
+        dataSource:
+            dbCreate: update
+            url: jdbc:mysql://localhost:3306/testDb?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+    production:
+        dataSource:
+            dbCreate: update
+            url: jdbc:mysql://localhost:3306/prodDb?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+            properties:
+                jmxEnabled: true
+                initialSize: 5
+                maxActive: 50
+                minIdle: 5
+                maxIdle: 25
+                maxWait: 10000
+                maxAge: 600000
+                timeBetweenEvictionRunsMillis: 5000
+                minEvictableIdleTimeMillis: 60000
+                validationQuery: SELECT 1
+                validationQueryTimeout: 3
+                validationInterval: 15000
+                testOnBorrow: true
+                testWhileIdle: true
+                testOnReturn: false
+                jdbcInterceptors: ConnectionState
+                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
