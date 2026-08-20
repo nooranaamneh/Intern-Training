@@ -6,7 +6,9 @@ class Task {
     String description
     Date deadline
     TaskStatus status
-    User user_id
+    User assignedUser
+
+    static belongsTo = [assignedUser: User]
 
     static constraints = {
         title blank: false, maxSize: 255
