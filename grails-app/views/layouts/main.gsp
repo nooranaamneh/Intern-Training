@@ -8,9 +8,7 @@
     <asset:stylesheet src="application.css"/>
     <g:layoutHead/>
 </head>
-
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color:#3b5bdb;">
     <div class="container-lg">
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="${request.contextPath}/task/index">
@@ -30,17 +28,30 @@
                 <li class="nav-item">
                     <a class="nav-link " href="${request.contextPath}/task/create">+ New Task</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${request.contextPath}/logout">Logout</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="bg-body-tertiary">
     <div class="container-lg py-4">
-        <g:flashMessages />
+        <g:if test="${flash.error}">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        ${flash.error}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+</g:if>
+<g:elseif test="${flash.message}">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        ${flash.message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+</g:elseif>
         <g:layoutBody/>
     </div>
 </div>
-
 <div id="spinner" class="position-absolute top-0 end-0 p-1" style="display:none;">
     <div class="spinner-border spinner-border-sm" role="status">
         <span class="visually-hidden">Loading...</span>

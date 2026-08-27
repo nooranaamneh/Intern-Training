@@ -10,7 +10,6 @@
 
 <div class="mb-4">
     <h1 class="fw-bold">Edit Task</h1>
-    <p class="text-body-secondary">Update the task details below</p>
 </div>
 
 <g:hasErrors bean="${task}">

@@ -8,7 +8,6 @@
 
 <div class="mb-4">
     <h1 class="fw-bold">Task Manager Dashboard</h1>
-    <p class="text-body-secondary">Overview of your tasks at a glance</p>
 </div>
 
 <div class="row g-3 mb-4">

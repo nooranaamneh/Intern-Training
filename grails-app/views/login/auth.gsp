@@ -2,19 +2,17 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Task Manager</title>
+    <title>Login - Task Manager</title>
 </head>
 <body>
-<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
-    <div class="col-12 col-md-6 col-lg-5">
-        <div class="text-center mb-4">
-            <h1 class="fw-bold" style="color:#3b5bdb;">
-                <i class="bi bi-check2-square"></i> Task Manager
-            </h1>
-        </div>
+<div class="row justify-content-center mt-5">
+    <div class="col-12 col-md-5">
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
-                <form action="/login/authenticate" method="POST" id="loginForm" autocomplete="off">
+                <h3 class="fw-bold mb-1">Welcome Back</h3>
+                <p class="text-body-secondary mb-4">Sign in to manage your tasks</p>
+                
+                <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" autocomplete="off">
                     <div class="mb-3">
                         <label for="username" class="form-label fw-semibold">Username</label>
                         <input type="text" class="form-control" name="username" id="username" required autofocus/>

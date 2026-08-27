@@ -9,7 +9,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1 class="fw-bold">Tasks</h1>
-        <p class="text-body-secondary mb-0">Browse and manage all tasks</p>
     </div>
     <g:link controller="task" action="create" class="btn btn-primary">+ New Task</g:link>
 </div>
@@ -52,7 +51,14 @@
                         <td>${task.assignedUser?.username ?: '-'}</td>
                         <td class="text-end">
                             <g:link controller="task" action="show" id="${task.id}" class="btn btn-sm btn-outline-secondary">View</g:link>
-                            <g:link controller="task" action="edit" id="${task.id}" class="btn btn-sm btn-outline-primary">Edit</g:link>
+                               <sec:ifAnyGranted roles="ROLE_ADMIN">
+                                 <g:link controller="task" action="edit" id="${task.id}" class="btn btn-sm btn-outline-primary">Edit</g:link>
+                               </sec:ifAnyGranted>
+                            <g:if test="${task.assignedUser?.id == currentUserId}">
+                               <sec:ifNotGranted roles="ROLE_ADMIN">
+                                  <g:link controller="task" action="edit" id="${task.id}" class="btn btn-sm btn-outline-primary">Edit</g:link>
+                               </sec:ifNotGranted>
+                            </g:if>
                         </td>
                     </tr>
                 </g:each>

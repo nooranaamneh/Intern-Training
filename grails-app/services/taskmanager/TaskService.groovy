@@ -20,8 +20,9 @@ class TaskService {
         task.deadline = taskParams.deadline
         task.status = taskParams.status as Task.TaskStatus
 
-        if (taskParams.assignedUser?.id) {
-            task.assignedUser = User.get(taskParams.assignedUser.id as Long)
+        def assignedUserId = taskParams.assignedUser?.id ?: taskParams['assignedUser.id']
+        if (assignedUserId) {
+            task.assignedUser = User.get(assignedUserId as Long)
         }
 
         Calendar cal = Calendar.getInstance()
@@ -49,8 +50,9 @@ class TaskService {
         task.deadline = taskParams.deadline
         task.status = taskParams.status as Task.TaskStatus
 
-        if (taskParams.assignedUser?.id) {
-            task.assignedUser = User.get(taskParams.assignedUser.id as Long)
+        def assignedUserId = taskParams.assignedUser?.id ?: taskParams['assignedUser.id']
+        if (assignedUserId) {
+            task.assignedUser = User.get(assignedUserId as Long)
         }
 
         Calendar cal = Calendar.getInstance()
@@ -77,24 +79,24 @@ class TaskService {
     }
 
     Map<String, Long> countTasksByStatus() {
-    Map<String, Long> counts = [:]
-    Task.TaskStatus.values().each { status ->
-        counts[status.name()] = Task.countByStatus(status)
+        Map<String, Long> counts = [:]
+        Task.TaskStatus.values().each { status ->
+            counts[status.name()] = Task.countByStatus(status)
+        }
+        counts
     }
-    counts
-}
 
-Long countOverdueTasks() {
-    Calendar cal = Calendar.getInstance()
-    cal.set(Calendar.HOUR_OF_DAY, 0)
-    cal.set(Calendar.MINUTE, 0)
-    cal.set(Calendar.SECOND, 0)
-    cal.set(Calendar.MILLISECOND, 0)
-    Date today = cal.getTime()
+    Long countOverdueTasks() {
+        Calendar cal = Calendar.getInstance()
+        cal.set(Calendar.HOUR_OF_DAY, 0)
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.SECOND, 0)
+        cal.set(Calendar.MILLISECOND, 0)
+        Date today = cal.getTime()
 
-    Task.createCriteria().count {
-        lt('deadline', today)
-        ne('status', Task.TaskStatus.DONE)
+        Task.createCriteria().count {
+            lt('deadline', today)
+            ne('status', Task.TaskStatus.DONE)
+        }
     }
-}
 }

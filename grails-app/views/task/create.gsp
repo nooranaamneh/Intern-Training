@@ -10,7 +10,6 @@
 
 <div class="mb-4">
     <h1 class="fw-bold">Create New Task</h1>
-    <p class="text-body-secondary">Fill in the details below to add a new task</p>
 </div>
 
 <g:if test="${flash.message}">
